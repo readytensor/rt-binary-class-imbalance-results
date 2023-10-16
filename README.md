@@ -1,4 +1,4 @@
-# rt-smote-project-results
+# SMOTE analysis for binary classification imbalanced datasets
 
 ## Project Description
 
