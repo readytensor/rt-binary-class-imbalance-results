@@ -74,8 +74,6 @@ The following is the directory structure of the project:
 The code in this repository is licensed under the MIT License. See [license](license) for details.
 The data in this repository is dedicated to the public domain under CC0 1.0 Universal. See [data/license](./data/license) for details.
 
-This project is provided under the MIT License. Please see the file for more information.
-
 ## Contact Information
 
 Repository created by Ready Tensor, Inc. (https://www.readytensor.ai/)
