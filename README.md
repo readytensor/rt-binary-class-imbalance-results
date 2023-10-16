@@ -71,7 +71,7 @@ The following is the directory structure of the project:
 
 ## LICENSE
 
-The code in this repository is licensed under the MIT License. See [license](license) for details.
+The code in this repository is licensed under the MIT License. See [license](license) for details. <br>
 The data in this repository is dedicated to the public domain under CC0 1.0 Universal. See [data/license](./data/license) for details.
 
 ## Contact Information
