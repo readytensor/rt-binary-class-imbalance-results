@@ -1,4 +1,4 @@
-# SMOTE analysis for binary classification imbalanced datasets
+# SMOTE analysis for binary classification on imbalanced datasets
 
 ## Project Description
 
