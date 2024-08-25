@@ -1,0 +1,64 @@
+{
+  "title": "Mammography",
+  "description": "not available",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "target",
+    "description": "binary class (-1 or 1)",
+    "classes": [
+      "-1",
+      "1"
+    ]
+  },
+  "features": [
+    {
+      "name": "f0",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.23001961,
+      "nullable": false
+    },
+    {
+      "name": "f1",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 5.0725783,
+      "nullable": false
+    },
+    {
+      "name": "f2",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": -0.27606055,
+      "nullable": false
+    },
+    {
+      "name": "f3",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.83244412,
+      "nullable": false
+    },
+    {
+      "name": "f4",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": -0.37786573,
+      "nullable": false
+    },
+    {
+      "name": "f5",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.4803223,
+      "nullable": false
+    }
+  ]
+}

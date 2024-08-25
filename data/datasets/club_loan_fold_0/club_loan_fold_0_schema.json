@@ -1,0 +1,172 @@
+{
+  "title": "Lending Club LoanData",
+  "description": "Historical data from 2007 to 2015. Highly imbalanced Dataset",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "not.fully.paid",
+    "description": "binary class (0 or 1)",
+    "classes": [
+      "0",
+      "1"
+    ]
+  },
+  "features": [
+    {
+      "name": "credit.policy",
+      "description": "not available",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        0,
+        1
+      ],
+      "nullable": false
+    },
+    {
+      "name": "purpose",
+      "description": "not available",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "all_other",
+        "credit_card",
+        "debt_consolidation",
+        "educational",
+        "home_improvement",
+        "major_purchase",
+        "small_business"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "int.rate",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.1189,
+      "nullable": false
+    },
+    {
+      "name": "installment",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 829.1,
+      "nullable": false
+    },
+    {
+      "name": "log.annual.inc",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 11.35040654,
+      "nullable": false
+    },
+    {
+      "name": "dti",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 19.48,
+      "nullable": false
+    },
+    {
+      "name": "fico",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 737,
+      "nullable": false
+    },
+    {
+      "name": "days.with.cr.line",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 5639.958333,
+      "nullable": false
+    },
+    {
+      "name": "revol.bal",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 28854,
+      "nullable": false
+    },
+    {
+      "name": "revol.util",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 52.1,
+      "nullable": false
+    },
+    {
+      "name": "inq.last.6mths",
+      "description": "not available",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        0,
+        1,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        2,
+        20,
+        24,
+        25,
+        27,
+        28,
+        3,
+        31,
+        32,
+        33,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "nullable": false
+    },
+    {
+      "name": "delinq.2yrs",
+      "description": "not available",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        0,
+        1,
+        11,
+        13,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "nullable": false
+    },
+    {
+      "name": "pub.rec",
+      "description": "not available",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "nullable": false
+    }
+  ]
+}

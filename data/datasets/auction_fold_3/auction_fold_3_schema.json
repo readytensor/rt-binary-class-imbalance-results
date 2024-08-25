@@ -1,0 +1,71 @@
+{
+  "title": "Auction Verification",
+  "description": "The dataset was created as part of a scientific study. The goal was to find out whether one could replace costly verification of complex process models (here: simultaneous multi-round auctions, as used for auctioning frequency spectra) with predictions of the outcome.",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "verification.result",
+    "description": "binary class (True or False) Verification checks whether a particular price is possible for a particular product",
+    "classes": [
+      "False",
+      "True"
+    ]
+  },
+  "features": [
+    {
+      "name": "process.b1.capacity",
+      "description": "Capacity (max number of products to win) of Bidder 1.",
+      "dataType": "NUMERIC",
+      "example": 0,
+      "nullable": false
+    },
+    {
+      "name": "process.b2.capacity",
+      "description": "Capacity (max number of products to win) of Bidder 2.",
+      "dataType": "NUMERIC",
+      "example": 0,
+      "nullable": false
+    },
+    {
+      "name": "process.b3.capacity",
+      "description": "Capacity (max number of products to win) of Bidder 3.",
+      "dataType": "NUMERIC",
+      "example": 2,
+      "nullable": false
+    },
+    {
+      "name": "process.b4.capacity",
+      "description": "Capacity (max number of products to win) of Bidder 4.",
+      "dataType": "NUMERIC",
+      "example": 1,
+      "nullable": false
+    },
+    {
+      "name": "property.price",
+      "description": "Price currently verified.",
+      "dataType": "NUMERIC",
+      "example": 59,
+      "nullable": false
+    },
+    {
+      "name": "property.product",
+      "description": "Product currently verified.",
+      "dataType": "NUMERIC",
+      "example": 1,
+      "nullable": false
+    },
+    {
+      "name": "property.winner",
+      "description": "Bidder currently verified as winner of the product (0 if only price verified).",
+      "dataType": "NUMERIC",
+      "example": 0,
+      "nullable": false
+    }
+  ]
+}

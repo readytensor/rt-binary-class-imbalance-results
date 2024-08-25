@@ -1,0 +1,181 @@
+{
+  "title": "Thoracic Surgery",
+  "description": "The data was collected retrospectively at Wroclaw Thoracic Surgery Centre for patients who underwent major lung resections for primary lung cancer in the years 2007\ufffd\ufffd\ufffd2011. The Centre is associated with the Department of Thoracic Surgery of the Medical University of Wroclaw and Lower-Silesian Centre for Pulmonary Diseases, Poland, while the research database constitutes a part of the National Lung Cancer Registry, administered by the Institute of Tuberculosis and Pulmonary Diseases in Warsaw, Poland.",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "Class",
+    "description": "binary class (1 or 2) class 1 - death within one year after surgery, class 2 - survival",
+    "classes": [
+      "1",
+      "2"
+    ]
+  },
+  "features": [
+    {
+      "name": "V1",
+      "description": "DGN: Diagnosis - specific combination of ICD-10 codes for primary and secondary as well multiple tumours if any (DGN3,DGN2,DGN4,DGN6,DGN5,DGN8,DGN1)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V2",
+      "description": "PRE4: Forced vital capacity - FVC (numeric)",
+      "dataType": "NUMERIC",
+      "example": 2.88,
+      "nullable": false
+    },
+    {
+      "name": "V3",
+      "description": "PRE5: Volume that has been exhaled at the end of the first second of forced expiration - FEV1 (numeric)",
+      "dataType": "NUMERIC",
+      "example": 2.16,
+      "nullable": false
+    },
+    {
+      "name": "V4",
+      "description": "PRE6: Performance status - Zubrod scale (PRZ2,PRZ1,PRZ0)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2",
+        "3"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V5",
+      "description": "PRE7: Pain before surgery (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V6",
+      "description": "PRE8: Haemoptysis before surgery (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V7",
+      "description": "PRE9: Dyspnoea before surgery (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V8",
+      "description": "PRE10: Cough before surgery (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V9",
+      "description": "PRE11: Weakness before surgery (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V10",
+      "description": "PRE14: T in clinical TNM - size of the original tumour, from OC11 (smallest) to OC14 (largest) (OC11,OC14,OC12,OC13)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V11",
+      "description": "PRE17: Type 2 DM - diabetes mellitus (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V12",
+      "description": "PRE19: MI up to 6 months (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V13",
+      "description": "PRE25: PAD - peripheral arterial diseases (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V14",
+      "description": "PRE30: Smoking (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V15",
+      "description": "PRE32: Asthma (T,F)",
+      "dataType": "CATEGORICAL",
+      "categories": [
+        "1",
+        "2"
+      ],
+      "nullable": false
+    },
+    {
+      "name": "V16",
+      "description": "AGE: Age at surgery (numeric)",
+      "dataType": "NUMERIC",
+      "example": 60.0,
+      "nullable": false
+    }
+  ]
+}

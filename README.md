@@ -1,4 +1,6 @@
-# SMOTE analysis for binary classification on imbalanced datasets
+# Binary Class Imbalance Study
+
+This repository contains the results of a study on the impact of SMOTE on binary classification performance on imbalanced datasets.
 
 ## Project Description
 
@@ -27,7 +29,7 @@ Understanding the impact of techniques like SMOTE is crucial for practitioners d
 The following is the directory structure of the project:
 
 - **`data/`**: This directory contains files for the datasets used in the project. Three files are included:
-  - **`SMOTE project datasets.csv`**: This file contains information about the datasets used in tha analysis.
+  - **`binary_class_imbalance_study_datasets.csv`**: This file contains information about the datasets used in tha analysis.
   - **`Imbalanced datasets SMOTE results.csv`**: This file contains the results of running multiple benchmarks on the datasets with and without applying SMOTE.
   - **`license`**: This file contains the license for the data.
 - **`results/`**: This directory contains the result of running the Jupyter notebook.

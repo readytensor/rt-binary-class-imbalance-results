@@ -1,0 +1,274 @@
+{
+  "title": "Satellite",
+  "description": "The satellite dataset comprises of features extracted from satellite observations. In particular, each image was taken under four different light wavelength, two in visible light (green and red) and two infrared images. The task of the original dataset is to classify the image into the soil category of the observed region.",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "Target",
+    "description": "binary class (Anomaly or Normal)",
+    "classes": [
+      "Normal",
+      "Anomaly"
+    ]
+  },
+  "features": [
+    {
+      "name": "V1",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 46.0,
+      "nullable": false
+    },
+    {
+      "name": "V2",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 40.0,
+      "nullable": false
+    },
+    {
+      "name": "V3",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 119.0,
+      "nullable": false
+    },
+    {
+      "name": "V4",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 139.0,
+      "nullable": false
+    },
+    {
+      "name": "V5",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 42.0,
+      "nullable": false
+    },
+    {
+      "name": "V6",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 30.0,
+      "nullable": false
+    },
+    {
+      "name": "V7",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 135.0,
+      "nullable": false
+    },
+    {
+      "name": "V8",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 157.0,
+      "nullable": false
+    },
+    {
+      "name": "V9",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 42.0,
+      "nullable": false
+    },
+    {
+      "name": "V10",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 30.0,
+      "nullable": false
+    },
+    {
+      "name": "V11",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 140.0,
+      "nullable": false
+    },
+    {
+      "name": "V12",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 150.0,
+      "nullable": false
+    },
+    {
+      "name": "V13",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 50.0,
+      "nullable": false
+    },
+    {
+      "name": "V14",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 43.0,
+      "nullable": false
+    },
+    {
+      "name": "V15",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 110.0,
+      "nullable": false
+    },
+    {
+      "name": "V16",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 115.0,
+      "nullable": false
+    },
+    {
+      "name": "V17",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 44.0,
+      "nullable": false
+    },
+    {
+      "name": "V18",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 34.0,
+      "nullable": false
+    },
+    {
+      "name": "V19",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 129.0,
+      "nullable": false
+    },
+    {
+      "name": "V20",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 143.0,
+      "nullable": false
+    },
+    {
+      "name": "V21",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 42.0,
+      "nullable": false
+    },
+    {
+      "name": "V22",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 29.0,
+      "nullable": false
+    },
+    {
+      "name": "V23",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 135.0,
+      "nullable": false
+    },
+    {
+      "name": "V24",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 150.0,
+      "nullable": false
+    },
+    {
+      "name": "V25",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 50.0,
+      "nullable": false
+    },
+    {
+      "name": "V26",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 40.0,
+      "nullable": false
+    },
+    {
+      "name": "V27",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 115.0,
+      "nullable": false
+    },
+    {
+      "name": "V28",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 113.0,
+      "nullable": false
+    },
+    {
+      "name": "V29",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 50.0,
+      "nullable": false
+    },
+    {
+      "name": "V30",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 46.0,
+      "nullable": false
+    },
+    {
+      "name": "V31",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 111.0,
+      "nullable": false
+    },
+    {
+      "name": "V32",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 116.0,
+      "nullable": false
+    },
+    {
+      "name": "V33",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 44.0,
+      "nullable": false
+    },
+    {
+      "name": "V34",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 31.0,
+      "nullable": false
+    },
+    {
+      "name": "V35",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 131.0,
+      "nullable": false
+    },
+    {
+      "name": "V36",
+      "description": "description not available",
+      "dataType": "NUMERIC",
+      "example": 142.0,
+      "nullable": false
+    }
+  ]
+}

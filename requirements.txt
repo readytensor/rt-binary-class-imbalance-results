@@ -1,6 +1,7 @@
-pandas==2.1.1
-scipy==1.11.3
-matplotlib==3.7.2
-seaborn==0.13.0
-statsmodels==0.14.2
-
+numpy~=2.0.1
+pandas~=2.2.2
+pydantic~=2.8.2
+scikit-learn~=1.5.1
+setuptools~=71.1.0
+psutil~=6.0.0
+tqdm~=4.66.5

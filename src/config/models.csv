@@ -1,0 +1,16 @@
+model_num,model,model_display_name
+1,rt_bin_class_logistic_regression_sklearn,Logistic Regression
+2,rt_bin_class_decision_tree_sklearn,Decision Tree
+3,rt_bin_class_svc_sklearn,SVM
+4,rt_bin_class_reludnnclassifier_piml,ReLU DNN
+5,rt_bin_class_simple_ann_pt_gpu,Simple ANN
+6,rt_bin_class_adaboost_sklearn,AdaBoost
+7,rt_bin_class_bagging_sklearn,Bagging
+8,rt_bin_class_rf_hyperopt,Random Forest
+9,rt_bin_class_extra_trees_sklearn,Extra Trees
+10,rt_bin_class_gradient_boosting_sklearn,Gradient Boosting
+11,rt_bin_class_ebm_interpretml,EBM
+12,rt_bin_class_figs_piml,FIGS
+13,rt_bin_class_catboost,CatBoost
+14,rt_bin_class_lightgbm,LightGBM
+15,rt_bin_class_xgboost,XGBoost

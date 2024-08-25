@@ -1,0 +1,134 @@
+{
+  "title": "Letter Recognition",
+  "description": "Database of character image features; try to identify the letter\r\n",
+  "modelCategory": "binary_classification",
+  "schemaVersion": 1.0,
+  "inputDataFormat": "CSV",
+  "encoding": "utf-8",
+  "id": {
+    "name": "id",
+    "description": "unique identifier"
+  },
+  "target": {
+    "name": "target",
+    "description": "binary class (-1 or 1)",
+    "classes": [
+      "-1",
+      "1"
+    ]
+  },
+  "features": [
+    {
+      "name": "f0",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 2.0,
+      "nullable": false
+    },
+    {
+      "name": "f1",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 8.0,
+      "nullable": false
+    },
+    {
+      "name": "f2",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 3.0,
+      "nullable": false
+    },
+    {
+      "name": "f3",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 5.0,
+      "nullable": false
+    },
+    {
+      "name": "f4",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 1.0,
+      "nullable": false
+    },
+    {
+      "name": "f5",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 8.0,
+      "nullable": false
+    },
+    {
+      "name": "f6",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 13.0,
+      "nullable": false
+    },
+    {
+      "name": "f7",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.0,
+      "nullable": false
+    },
+    {
+      "name": "f8",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 6.0,
+      "nullable": false
+    },
+    {
+      "name": "f9",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 6.0,
+      "nullable": false
+    },
+    {
+      "name": "f10",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 10.0,
+      "nullable": false
+    },
+    {
+      "name": "f11",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 8.0,
+      "nullable": false
+    },
+    {
+      "name": "f12",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.0,
+      "nullable": false
+    },
+    {
+      "name": "f13",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 8.0,
+      "nullable": false
+    },
+    {
+      "name": "f14",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 0.0,
+      "nullable": false
+    },
+    {
+      "name": "f15",
+      "description": "not available",
+      "dataType": "NUMERIC",
+      "example": 8.0,
+      "nullable": false
+    }
+  ]
+}
