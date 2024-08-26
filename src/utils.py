@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from typing import Any, Dict, List, Tuple, Union
 
-import paths
+import config.paths as paths
 
 
 def read_json_as_dict(input_path: str) -> Dict:
@@ -80,13 +80,49 @@ def get_predictions(
     Returns:
     - predictions (pd.DataFrame): The predictions of the dataset.
     """
+    compressed_path = os.path.join(
+        paths.PREDICTIONS_DIR,
+        scenario_name,
+        model_name,
+        dataset_name,
+        "predictions.csv.gz",
+    )
+
+    path = os.path.join(
+        paths.PREDICTIONS_DIR,
+        scenario_name,
+        model_name,
+        dataset_name,
+        "predictions.csv",
+    )
     predictions = pd.read_csv(
-        os.path.join(
-            paths.PREDICTIONS_DIR,
-            scenario_name,
-            model_name,
-            dataset_name,
-            "predictions.csv.gz",
-        )
+        compressed_path if os.path.exists(compressed_path) else path
     )
     return predictions
+
+
+def prepare_data(metrics: pd.DataFrame) -> pd.DataFrame:
+    """
+    Prepare the data for visualization by melting the dataframe and sorting the values.
+    """
+    metrics = metrics.melt(
+        id_vars=["scenario", "model", "dataset", "fold_number"],
+        value_vars=[
+            "accuracy",
+            "precision",
+            "recall",
+            "f1_score",
+            "f2_score",
+            "auc_score",
+            "pr_auc_score",
+        ],
+        var_name="metric",
+        value_name="score",
+    )
+
+    metrics = metrics.pivot_table(
+        index=["model", "dataset", "metric", "fold_number"],
+        columns="scenario",
+        values="score",
+    ).reset_index()
+    return metrics

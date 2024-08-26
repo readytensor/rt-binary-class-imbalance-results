@@ -3,9 +3,9 @@ from tqdm import tqdm
 import logging
 
 from logging_config import ContextFilter, setup_logging
-import paths
+import config.paths as paths
 from utils import read_csv_as_df, get_dataset_files, get_predictions, save_df_as_csv
-from variables import scenarios
+from config.variables import scenarios
 from metrics import get_binary_classification_scores
 
 logger = logging.getLogger(__name__)
