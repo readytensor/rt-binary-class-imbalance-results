@@ -43,11 +43,11 @@ def prepare_metrics_df_with_metadata(
         lambda x: x.split("_fold")[0]
     )
     prepared_df["Fold"] = prepared_df["Dataset_Fold"].map(lambda x: x[-1]).astype(int)
-    
+
     # Create a mapping of model names to their order
     models_order = {model: i for i, model in enumerate(ordered_models)}
     prepared_df["Model Order"] = prepared_df["Model"].map(models_order)
-    
+
     return prepared_df
 
 
@@ -101,7 +101,9 @@ def aggregate_metrics(metrics_df: pd.DataFrame, by: str = "overall") -> pd.DataF
 
     # Reshape the DataFrame to have 'Scenario', 'Metric', 'Mean ± Std Dev' columns
     aggregated_melted = aggregated.melt(
-        id_vars=(["Scenario"] + groupby_columns), var_name="metric_stat", value_name="value"
+        id_vars=(["Scenario"] + groupby_columns),
+        var_name="metric_stat",
+        value_name="value",
     )
 
     # Split the 'metric_stat' column into separate 'metric' and 'stat' columns
@@ -126,13 +128,13 @@ def aggregate_metrics(metrics_df: pd.DataFrame, by: str = "overall") -> pd.DataF
 
     # Set the index back
     aggregated_pivot.set_index(["Scenario", "Metric"] + groupby_columns, inplace=True)
-    
+
     return aggregated_pivot
 
 
 def summarize_metrics():
     """
-    Summarize the metrics by aggregating them at various levels (overall, by dataset, by model, 
+    Summarize the metrics by aggregating them at various levels (overall, by dataset, by model,
     and by model-dataset combination) and saving the summarized metrics to CSV files.
     """
     orig_metrics = read_csv_as_df(paths.METRICS_FPATH)
@@ -193,13 +195,16 @@ def pivot_and_order_table(
         )
         sort_columns.append("Metric")
 
+    if "Dataset" in index_cols or "Dataset" in pivoted.columns:
+        sort_columns.append("Dataset")
+
     if "Model" in index_cols and models:
         sort_columns.append("Model Order")
 
     # Sort the dataframe
     if sort_columns:
         pivoted.sort_values(sort_columns, inplace=True)
-    
+
     # Remove the temporary 'Model Order' column if it was created
     if "Model Order" in pivoted.columns:
         pivoted.drop("Model Order", axis=1, inplace=True)
@@ -218,12 +223,12 @@ def create_pivoted_tables():
     by_model_dataset_df = read_csv_as_df(paths.BY_MODEL_DATASET_METRICS_FPATH)
 
     # Create pivoted tables
-    overall_pivoted = pivot_and_order_table(overall_df, ["Metric"], 
-        ordered_scenarios,
-        ordered_metrics
+    overall_pivoted = pivot_and_order_table(
+        overall_df, ["Metric"], ordered_scenarios, ordered_metrics
     )
     by_dataset_pivoted = pivot_and_order_table(
-        by_dataset_df, ["Metric", "Dataset"], 
+        by_dataset_df,
+        ["Metric", "Dataset"],
         ordered_scenarios,
         ordered_metrics,
     )
