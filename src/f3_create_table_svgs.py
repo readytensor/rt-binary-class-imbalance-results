@@ -78,7 +78,7 @@ def generate_table_svgs():
         highlight_cells=highlight_cells,
         center_align_columns=ordered_scenarios,
         column_widths={
-            "Model": 120,
+            "Model": 180,
             "Baseline": 150,
             "SMOTE": 150,
             "Class Weights": 150,
