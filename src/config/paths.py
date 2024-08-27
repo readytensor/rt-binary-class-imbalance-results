@@ -49,10 +49,9 @@ BY_MODEL_DATASET_PIVOTED_METRICS_FPATH = os.path.join(
 )
 
 # Charts
-OVERALL_MARKDOWN_TABLE_PATH = os.path.join(CHARTS_DIR, "overall_metrics.md")
-OVERALL_HEATMAP_PATH = os.path.join(CHARTS_DIR, "overall_metrics_heatmap.svg")
-OVERALL_LATEX_TABLE_PATH = os.path.join(CHARTS_DIR, "overall_metrics_latex.tex")
-OVERALL_TABLE_IMAGE_PATH = os.path.join(CHARTS_DIR, "overall_metrics_table.png")
+OVERALL_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "overall_metrics.svg")
+BY_MODEL_F1_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "by_model_f1_results.svg")
+BY_DATASET_F1_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "by_dataset_f1_results.svg")
 
 
 WHICH_IS_BETTER_CHART_FPATH = os.path.join(CHARTS_DIR, "better_scenario.png")
