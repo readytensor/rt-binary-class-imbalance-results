@@ -1,51 +1,65 @@
+"""
+Calculate classification metrics for binary class imbalance experiments.
+
+This script processes prediction results across multiple datasets, models, and
+imbalance handling scenarios. It computes various performance metrics and saves
+the results to a CSV file.
+
+Usage:
+    python f1_calculate_metrics.py
+
+Requires:
+    - Prediction files for each dataset-model-scenario combination
+    - Dataset schema and test key files
+    - CSV files listing models and datasets
+"""
+
 import pandas as pd
 from tqdm import tqdm
 import logging
 
 from logging_config import ContextFilter, setup_logging
 import config.paths as paths
-from utils import read_csv_as_df, get_dataset_files, get_predictions, save_df_as_csv
-from config.variables import scenarios
+from utils import (
+    get_dataset_files,
+    get_predictions,
+    save_dataframe_as_csv,
+)
+from config.variables import scenarios_mapping, models_mapping, dataset_folds
 from metrics import get_binary_classification_scores
 
 logger = logging.getLogger(__name__)
 setup_logging(paths.METRICS_CALCULATION_LOG_FPATH)
 
 
-def calculate_metrics(models: pd.DataFrame, datasets: pd.DataFrame) -> pd.DataFrame:
+def calculate_metrics() -> pd.DataFrame:
     """
     Calculate metrics for a given dataframe.
-
-    Args:
-        models (pd.DataFrame): Dataframe containing list of models.
-        datasets (pd.DataFrame): Dataframe containing list of datasets.
 
     Returns:
         pd.DataFrame: Dataframe containing metrics.
     """
     all_metrics = []
-
-    total_iterations = len(datasets) * len(scenarios) * len(models)
+    scenarios = list(scenarios_mapping.keys())
+    models = list(models_mapping.keys())
+    total_iterations = len(dataset_folds) * len(scenarios) * len(models)
 
     with tqdm(total=total_iterations, desc="Calculating Metrics", unit="task") as pbar:
-        for _, dataset_row in datasets.iterrows():
-            dataset = dataset_row["dataset"]
+        for dataset_fold in dataset_folds:
             # read the dataset schema and test key files
-            data_schema, test_key = get_dataset_files(dataset)
+            data_schema, test_key = get_dataset_files(dataset_fold)
 
             for scenario in scenarios:
-                for _, model_row in models.iterrows():
-                    model = model_row["model"]
-
-                    # Create a ContextFilter with the current dataset, scenario, and model
+                for model in models:
+                    # Create a ContextFilter with the current dataset_fold, scenario, and model
                     context_filter = ContextFilter(
-                        dataset=dataset,
+                        dataset=dataset_fold,
                         scenario=scenario,
                         model=model,
                     )
 
                     # read the predictions
-                    predictions = get_predictions(scenario, dataset, model)
+                    predictions = get_predictions(scenario, dataset_fold, model)
                     # calculate the metrics
                     metrics = get_binary_classification_scores(
                         data_schema,
@@ -53,33 +67,32 @@ def calculate_metrics(models: pd.DataFrame, datasets: pd.DataFrame) -> pd.DataFr
                         predictions,
                         context_filter,
                     )
-                    metrics["scenario"] = scenario
-                    metrics["dataset"] = dataset
-                    metrics["model"] = model
-                    metrics["fold_number"] = int(dataset[-1])
+                    metrics["Scenario"] = scenario
+                    metrics["Dataset_Fold"] = dataset_fold
+                    metrics["Model"] = model
                     all_metrics.append(metrics)
                     pbar.update(1)
 
     reordered_cols = [
-        "scenario",
-        "dataset",
-        "model",
-        "fold_number",
-        "accuracy",
-        "precision",
-        "recall",
-        "f1_score",
-        "f2_score",
-        "auc_score",
-        "pr_auc_score",
+        "Scenario",
+        "Dataset_Fold",
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1-score",
+        "F2-score",
+        "AUC",
+        "PR-AUC",
     ]
     results_df = pd.DataFrame(all_metrics)[reordered_cols]
+    # map scenario names to scenario display names
+    results_df["Scenario"] = results_df["Scenario"].map(scenarios_mapping)
+    results_df["Model"] = results_df["Model"].map(models_mapping)
     # save the metrics
-    save_df_as_csv(results_df, paths.METRICS_FPATH)
+    save_dataframe_as_csv(results_df, paths.METRICS_FPATH)
     logger.info("Metrics calculated and saved.")
 
 
 if __name__ == "__main__":
-    models_df = read_csv_as_df(paths.MODELS_FPATH)
-    datasets_df = read_csv_as_df(paths.DATASETS_FPATH)
-    calculate_metrics(models_df, datasets_df)
+    calculate_metrics()
