@@ -99,21 +99,15 @@ def get_binary_classification_scores(
     precision_curve, recall_curve, _ = precision_recall_curve(y_true, y_pred_proba)
     pr_auc = auc(recall_curve, precision_curve)
 
-    # Calculate percentage of missing predictions
-    perc_pred_missing = np.round(
-        100 * (1 - predictions.shape[0] / test_key.shape[0]), 4
-    )
-
     # Compile all metrics into a dictionary
     scores = {
-        "accuracy": np.round(accuracy, 4),
-        "precision": np.round(precision, 4),
-        "recall": np.round(recall, 4),
-        "f1_score": np.round(f1, 4),
-        "f2_score": np.round(f2, 4),
-        "auc_score": np.round(roc_auc, 4),
-        "pr_auc_score": np.round(pr_auc, 4),
-        "perc_pred_missing": perc_pred_missing,
+        "Accuracy": np.round(accuracy, 4),
+        "Precision": np.round(precision, 4),
+        "Recall": np.round(recall, 4),
+        "F1-score": np.round(f1, 4),
+        "F2-score": np.round(f2, 4),
+        "AUC": np.round(roc_auc, 4),
+        "PR-AUC": np.round(pr_auc, 4),
     }
 
     logger.info("Metric calculation complete.")
