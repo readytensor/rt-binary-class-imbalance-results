@@ -112,7 +112,11 @@ def run_paired_t_tests(
     print("Paired t-test results saved to", save_dir_path)
 
 
-if __name__ == "__main__":
+def run_statistical_tests() -> None:
     metrics = pd.read_csv(paths.METRICS_FPATH)
     run_anova(metrics)
     run_paired_t_tests(metrics)
+
+
+if __name__ == "__main__":
+    run_statistical_tests()

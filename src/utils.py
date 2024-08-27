@@ -2,6 +2,7 @@ import json
 import os
 import pandas as pd
 from typing import Any, Dict, List, Tuple, Union
+from config.variables import ordered_metrics
 
 import config.paths as paths
 
@@ -99,28 +100,21 @@ def get_predictions(
     return predictions
 
 
-def prepare_data(metrics: pd.DataFrame) -> pd.DataFrame:
+def prepare_data_for_visualization(metrics: pd.DataFrame) -> pd.DataFrame:
     """
     Prepare the data for visualization by melting the dataframe and sorting the values.
     """
     metrics = metrics.melt(
-        id_vars=["scenario", "model", "dataset", "fold_number"],
-        value_vars=[
-            "accuracy",
-            "precision",
-            "recall",
-            "f1_score",
-            "f2_score",
-            "auc_score",
-            "pr_auc_score",
-        ],
-        var_name="metric",
-        value_name="score",
+        id_vars=["Scenario", "Model", "Dataset_Fold"],
+        value_vars=ordered_metrics,
+        var_name="Metric",
+        value_name="Value",
     )
 
     metrics = metrics.pivot_table(
-        index=["model", "dataset", "metric", "fold_number"],
-        columns="scenario",
-        values="score",
+        index=["Model", "Dataset_Fold", "Metric"],
+        columns="Scenario",
+        values="Value",
     ).reset_index()
+
     return metrics

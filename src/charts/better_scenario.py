@@ -1,14 +1,16 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from config.variables import chart_cfg, apply_chart_cfg
-from utils import prepare_data
+from .chart_utils import apply_chart_cfg
+from config.chart_cfg import *
+from config.variables import ordered_metrics, ordered_scenarios, ordered_models
+from utils import prepare_data_for_visualization
 
 
 def classify_comparison(row):
-    smote_val = row["smote"]
-    original_val = row["baseline"]
-    threshold_val = row["decision_threshold"]
-    class_weights_val = row["class_weights"]
+    smote_val = row["SMOTE"]
+    original_val = row["Baseline"]
+    threshold_val = row["Decision Threshold"]
+    class_weights_val = row["Class Weights"]
 
     maxx = max(smote_val, original_val, threshold_val, class_weights_val)
     if (
@@ -30,7 +32,7 @@ def classify_comparison(row):
 
 def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -> None:
     metrics = metrics_df.copy()
-    metrics = prepare_data(metrics)
+    metrics = prepare_data_for_visualization(metrics)
     metrics["comparison"] = metrics.apply(lambda row: classify_comparison(row), axis=1)
 
     comparison_columns = [
@@ -41,10 +43,10 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
         "tie",
     ]
     comparison_counts = (
-        metrics.groupby("metric")["comparison"]
+        metrics.groupby("Metric")["comparison"]
         .value_counts(normalize=True)
         .unstack()
-        .loc[chart_cfg["ordered_metrics"]]
+        .loc[ordered_metrics]
     )
 
     comparison_counts = comparison_counts[comparison_columns]
@@ -53,28 +55,26 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
     fig, axes = plt.subplots(1, 5, figsize=(16, 3), sharey=True)
 
     # Plot each subplot
-    for ax, metric in zip(axes, chart_cfg["ordered_metrics"]):
+    for ax, metric in zip(axes, ordered_metrics):
         comparison_counts.loc[[metric]][comparison_columns].plot(
             kind="barh",
             stacked=True,
-            color=chart_cfg["colors"].values(),
+            color=colors.values(),
             ax=ax,
             legend=False,
             width=0.6,
         )
-        ax.set_title(
-            metric, fontsize=chart_cfg["title_font_size"], color=chart_cfg["font_color"]
-        )
+        ax.set_title(metric, fontsize=title_font_size, color=font_color)
         # ax.set_xlabel('Percentage', fontsize=chart_cfg['xlabel_font_size'], color=chart_cfg['font_color'])
         ax.tick_params(
             axis="x",
-            colors=chart_cfg["font_color"],
-            labelsize=chart_cfg["tick_font_size"],
+            colors=font_color,
+            labelsize=tick_font_size,
         )
         ax.tick_params(
             axis="y",
-            colors=chart_cfg["font_color"],
-            labelsize=chart_cfg["tick_font_size"],
+            colors=font_color,
+            labelsize=tick_font_size,
         )
         ax.set_xlim(0, 1)
         ax.xaxis.set_major_formatter(lambda x, _: f"{100*x:.0f}%")
@@ -97,8 +97,8 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
 
     plt.suptitle(
         "% Times When Smote vs original is Better",
-        fontsize=chart_cfg["title_font_size"],
-        color=chart_cfg["font_color"],
+        fontsize=title_font_size,
+        color=font_color,
     )
 
     # Adjust layout and show the plot
@@ -108,14 +108,14 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
         facecolor="none",
         edgecolor="none",
         fontsize=12,
-        title_fontsize=chart_cfg["tick_font_size"],
+        title_fontsize=tick_font_size,
         #         color='#ccc'
     )
 
     # Set font color for the legend text
     for text in legend.get_texts():
-        text.set_color(chart_cfg["legend_font_color"])
-        text.set_fontsize(chart_cfg["legend_font_size"])
+        text.set_color(legend_font_color)
+        text.set_fontsize(legend_font_size)
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.35)
 
@@ -123,18 +123,25 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
 
 
 def create_scenario_impact_chart(
-    metrics_df: pd.DataFrame, save_fig_path: str, by: str = "model"
+    metrics_df: pd.DataFrame, save_fig_path: str, by: str = "Model"
 ) -> None:
     metrics = metrics_df.copy()
-    metrics = prepare_data(metrics)
-    metrics["dataset"] = metrics["dataset"].str.replace(r"_fold_\d+", "", regex=True)
-    metrics = metrics.groupby(["dataset", "model", "metric"]).mean().reset_index()
-    datasets = metrics["dataset"].unique()
+    metrics = prepare_data_for_visualization(metrics)
+    metrics["Dataset"] = metrics["Dataset_Fold"].str.replace(
+        r"_fold_\d+", "", regex=True
+    )
+
+    metrics = (
+        metrics.groupby(["Dataset", "Model", "Metric"])[ordered_scenarios]
+        .mean()
+        .reset_index()
+    )
+    datasets = metrics["Dataset"].unique()
 
     metrics["comparison"] = metrics.apply(lambda row: classify_comparison(row), axis=1)
 
     comparison_counts_model = (
-        metrics.groupby(["metric", by])["comparison"]
+        metrics.groupby(["Metric", by])["comparison"]
         .value_counts(normalize=True)
         .unstack()
         .fillna(0)
@@ -148,9 +155,9 @@ def create_scenario_impact_chart(
     ]
 
     # Create sub-plots with 5 columns (one for each metric) and 1 row
-    fig, axes = plt.subplots(1, 5, figsize=(20, 10), sharey=True)
+    fig, axes = plt.subplots(1, len(ordered_metrics), figsize=(20, 10), sharey=True)
 
-    for col, metric in enumerate(chart_cfg["ordered_metrics"]):
+    for col, metric in enumerate(ordered_metrics):
         ax = axes[col]
         df = comparison_counts_model.loc[metric]
 
@@ -158,43 +165,41 @@ def create_scenario_impact_chart(
             df = df.reindex(datasets[::-1])
 
         elif by == "model":
-            df.index = df.index.map(chart_cfg["ordered_models"])
-            df = df.reindex(list(chart_cfg["ordered_models"].values())[::-1])
+            df.index = df.index.map(ordered_models)
+            df = df.reindex(list(ordered_models.values())[::-1])
 
         df[comparison_columns].plot(
             kind="barh",
             stacked=True,
             ax=ax,
-            color=chart_cfg["colors"].values(),
+            color=colors.values(),
             legend=False,
             width=0.6,
         )
         ax.set_xlim(0, 1)
-        ax.set_title(
-            metric, fontsize=chart_cfg["title_font_size"], color=chart_cfg["font_color"]
-        )
+        ax.set_title(metric, fontsize=title_font_size, color=font_color)
         ax.xaxis.set_major_formatter(lambda x, _: f"{100*x:.0f}%")
         ax.tick_params(
             axis="x",
-            colors=chart_cfg["font_color"],
-            labelsize=chart_cfg["tick_font_size"],
+            colors=font_color,
+            labelsize=tick_font_size,
         )
         ax.tick_params(
             axis="y",
-            colors=chart_cfg["font_color"],
-            labelsize=chart_cfg["tick_font_size"],
+            colors=font_color,
+            labelsize=tick_font_size,
         )
         apply_chart_cfg(ax)
 
-    if by == "model":
+    if by == "Model":
         title = "Different Scenarios' Impact on Algorithm Performance"
-    elif by == "dataset":
+    elif by == "Dataset":
         title = "Different Scenarios' Impact on Dataset Performance"
 
     plt.suptitle(
         title,
-        fontsize=chart_cfg["title_font_size"],
-        color=chart_cfg["font_color"],
+        fontsize=title_font_size,
+        color=font_color,
     )
 
     # Adjust layout and show the plot
@@ -204,13 +209,13 @@ def create_scenario_impact_chart(
         loc="lower center",
         facecolor="none",
         edgecolor="none",
-        fontsize=chart_cfg["tick_font_size"],
-        title_fontsize=chart_cfg["tick_font_size"],
+        fontsize=tick_font_size,
+        title_fontsize=tick_font_size,
         ncol=3,
     )
     # Set font color for the legend text
     for text in legend.get_texts():
-        text.set_color(chart_cfg["legend_font_color"])
-        text.set_fontsize(chart_cfg["legend_font_size"])
+        text.set_color(legend_font_color)
+        text.set_fontsize(legend_font_size)
     plt.subplots_adjust(wspace=0.4, hspace=0.6)
     plt.savefig(save_fig_path)
