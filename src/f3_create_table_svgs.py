@@ -1,3 +1,22 @@
+
+"""
+This module generates SVG tables for overall results, results by model, and results by dataset,
+based on CSV files containing pivoted metrics. The tables are styled with customizable parameters 
+including font sizes, background colors, and border settings. The tables highlight specific cells 
+based on the extreme values (e.g., maximum or minimum) within specified columns.
+
+Main components:
+- `filter_df_col_by_val`: Filters a DataFrame by a specific value in a column and optionally 
+                          drops the column.
+- `generate_table_svgs`: Reads data from CSV files, applies styling and cell highlighting, 
+                        and generates SVG tables.
+
+External dependencies:
+- pandas for DataFrame manipulation.
+- matplotlib for plotting.
+- Custom utility modules for reading CSV files and configuring chart settings.
+"""
+
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
