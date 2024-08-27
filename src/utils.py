@@ -23,15 +23,9 @@ def read_csv_as_df(input_path: str) -> pd.DataFrame:
     return pd.read_csv(input_path)
 
 
-def save_df_as_csv(df: pd.DataFrame, file_path: str) -> None:
-    """
-    Saves a pandas dataframe to a CSV file in the given directory path.
-    Float values are saved with 4 decimal places.
-    """
-    df.to_csv(file_path, index=False, float_format="%.4f")
-
-
-def save_dataframe_as_csv(dataframe: pd.DataFrame, file_path: str) -> None:
+def save_dataframe_as_csv(
+    dataframe: pd.DataFrame, file_path: str, decimals: int = 3, index=False
+) -> None:
     """
     Saves a pandas dataframe to a CSV file in the given directory path.
     Float values are saved with 4 decimal places.
@@ -39,8 +33,12 @@ def save_dataframe_as_csv(dataframe: pd.DataFrame, file_path: str) -> None:
     Args:
     - df (pd.DataFrame): The pandas dataframe to be saved.
     - file_path (str): File path and name to save the CSV file.
+    - decimals (int): Number of decimal places to save the float values.
+    - index (bool): Whether to save the index of the dataframe.
     """
-    dataframe.to_csv(file_path, index=False, float_format="%.4f")
+    dataframe.to_csv(
+        file_path, index=index, float_format=f"%.{decimals}f", encoding="utf-8"
+    )
 
 
 def get_dataset_files(dataset_name: str):
