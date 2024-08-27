@@ -18,6 +18,7 @@ DATASETS_FPATH = os.path.join(CONFIG_DIR, "datasets.csv")
 RESULTS_DIR = os.path.join(ROOT_PATH, "results")
 CHARTS_DIR = os.path.join(RESULTS_DIR, "charts")
 METRICS_DIR = os.path.join(RESULTS_DIR, "metrics")
+STATISTICAL_TESTS_DIR = os.path.join(RESULTS_DIR, "statistical_tests")
 
 
 # output files
@@ -59,6 +60,10 @@ WHICH_IS_BETTER_CHART_FPATH = os.path.join(CHARTS_DIR, "better_scenario.png")
 BAR_CHART_FPATH = os.path.join(CHARTS_DIR, "bar_chart.png")
 DATASET_IMPACT_CHART = os.path.join(CHARTS_DIR, "dataset_impact.png")
 MODEL_IMPACT_CHART = os.path.join(CHARTS_DIR, "model_impact.png")
+
+# Statistical tests
+ANOVA_RESULTS_FPATH = os.path.join(STATISTICAL_TESTS_DIR, "anova_results.csv")
+TTEST_RESULTS_FPATH = os.path.join(STATISTICAL_TESTS_DIR, "ttest_results.csv")
 
 
 # logs

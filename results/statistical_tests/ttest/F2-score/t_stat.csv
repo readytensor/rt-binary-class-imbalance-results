@@ -1,0 +1,5 @@
+Scenario,Class Weights,Decision Threshold,SMOTE
+Baseline,-6.334225272189131,-5.898596962968375,-6.296064600234277
+Class Weights,-,-4.993732651967664,-4.403244760999284
+Decision Threshold,-,-,0.8520814950863832
+SMOTE,-,-,-
