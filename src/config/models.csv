@@ -1,4 +1,4 @@
-model_num,model,model_display_name
+Model_Num,Model,Model Display Name
 1,rt_bin_class_logistic_regression_sklearn,Logistic Regression
 2,rt_bin_class_decision_tree_sklearn,Decision Tree
 3,rt_bin_class_svc_sklearn,SVM

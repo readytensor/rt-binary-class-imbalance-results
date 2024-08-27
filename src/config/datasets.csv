@@ -1,4 +1,4 @@
-dataset,root_dataset,fold
+Dataset_Fold,Dataset,Fold
 abalone_binarized_fold_0,abalone_binarized,1
 abalone_binarized_fold_1,abalone_binarized,2
 abalone_binarized_fold_2,abalone_binarized,3
