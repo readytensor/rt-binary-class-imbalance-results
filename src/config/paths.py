@@ -8,6 +8,9 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(f_path)))
 DATA_DIR = os.path.join(ROOT_PATH, "data")
 DATASETS_DIR = os.path.join(DATA_DIR, "datasets")
 PREDICTIONS_DIR = os.path.join(DATA_DIR, "predictions")
+ZIPPED_DATASETS_FILE = os.path.join(DATA_DIR, "datasets.zip")
+ZIPPED_PREDICTIONS_FILE = os.path.join(DATA_DIR, "predictions.zip")
+
 
 # config
 CONFIG_DIR = os.path.join(ROOT_PATH, "src", "config")

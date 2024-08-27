@@ -1,7 +1,8 @@
 import json
 import os
+import zipfile
 import pandas as pd
-from typing import Any, Dict, List, Tuple, Union
+from typing import Dict
 from config.variables import ordered_metrics
 
 import config.paths as paths
@@ -52,6 +53,16 @@ def get_dataset_files(dataset_name: str):
     - data_schema (Dict): The schema of the dataset.
     - test_key (pd.DataFrame): The test key of the dataset.
     """
+
+    if not os.path.exists(paths.DATASETS_DIR):
+        if not os.path.exists(paths.ZIPPED_DATASETS_FILE):
+            raise FileNotFoundError(
+                f"Directory {paths.DATASETS_DIR} and file {paths.ZIPPED_DATASETS_FILE} do not exist."
+            )
+        # unzip the datasets file
+        with zipfile.ZipFile(paths.ZIPPED_DATASETS_FILE, "r") as zip_ref:
+            zip_ref.extractall(paths.DATA_DIR)
+
     data_schema_path = os.path.join(
         paths.DATASETS_DIR, dataset_name, f"{dataset_name}_schema.json"
     )
@@ -79,6 +90,16 @@ def get_predictions(
     Returns:
     - predictions (pd.DataFrame): The predictions of the dataset.
     """
+
+    if not os.path.exists(paths.PREDICTIONS_DIR):
+        if not os.path.exists(paths.ZIPPED_PREDICTIONS_FILE):
+            raise FileNotFoundError(
+                f"Directory {paths.PREDICTIONS_DIR} and file {paths.ZIPPED_PREDICTIONS_FILE} do not exist."
+            )
+        # unzip the predictions file
+        with zipfile.ZipFile(paths.ZIPPED_PREDICTIONS_FILE, "r") as zip_ref:
+            zip_ref.extractall(paths.DATA_DIR)
+
     compressed_path = os.path.join(
         paths.PREDICTIONS_DIR,
         scenario_name,
