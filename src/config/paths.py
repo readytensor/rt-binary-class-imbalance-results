@@ -14,20 +14,46 @@ CONFIG_DIR = os.path.join(ROOT_PATH, "src", "config")
 MODELS_FPATH = os.path.join(CONFIG_DIR, "models.csv")
 DATASETS_FPATH = os.path.join(CONFIG_DIR, "datasets.csv")
 
-# outputs
+# output directories
 RESULTS_DIR = os.path.join(ROOT_PATH, "results")
 CHARTS_DIR = os.path.join(RESULTS_DIR, "charts")
 METRICS_DIR = os.path.join(RESULTS_DIR, "metrics")
 
 
 # output files
+
+# raw metrics
 METRICS_FPATH = os.path.join(METRICS_DIR, "all_metrics.csv")
-OVERALL_METRICS_FPATH = os.path.join(METRICS_DIR, "overall_metric_summary.csv")
-BY_MODEL_METRICS_FPATH = os.path.join(METRICS_DIR, "by_model_metric_summary.csv")
-BY_DATASET_METRICS_FPATH = os.path.join(METRICS_DIR, "by_dataset_metric_summary.csv")
+
+# summarized metrics
+OVERALL_METRICS_FPATH = os.path.join(METRICS_DIR, "overall_metrics_summary.csv")
+BY_MODEL_METRICS_FPATH = os.path.join(METRICS_DIR, "by_model_metrics_summary.csv")
+BY_DATASET_METRICS_FPATH = os.path.join(METRICS_DIR, "by_dataset_metrics_summary.csv")
 BY_MODEL_DATASET_METRICS_FPATH = os.path.join(
-    METRICS_DIR, "by_model_dataset_metric_summary.csv"
+    METRICS_DIR, "by_model_dataset_metrics_summary.csv"
 )
+
+# pivoted tables
+# pivoted summarized metrics
+OVERALL_PIVOTED_METRICS_FPATH = os.path.join(
+    METRICS_DIR, "overall_metrics_summary_pivoted.csv"
+)
+BY_MODEL_PIVOTED_METRICS_FPATH = os.path.join(
+    METRICS_DIR, "by_model_metrics_summary_pivoted.csv"
+)
+BY_DATASET_PIVOTED_METRICS_FPATH = os.path.join(
+    METRICS_DIR, "by_dataset_metrics_summary_pivoted.csv"
+)
+BY_MODEL_DATASET_PIVOTED_METRICS_FPATH = os.path.join(
+    METRICS_DIR, "by_model_dataset_metrics_summary_pivoted.csv"
+)
+
+# Charts
+OVERALL_MARKDOWN_TABLE_PATH = os.path.join(CHARTS_DIR, "overall_metrics.md")
+OVERALL_HEATMAP_PATH = os.path.join(CHARTS_DIR, "overall_metrics_heatmap.svg")
+OVERALL_LATEX_TABLE_PATH = os.path.join(CHARTS_DIR, "overall_metrics_latex.tex")
+OVERALL_TABLE_IMAGE_PATH = os.path.join(CHARTS_DIR, "overall_metrics_table.png")
+
 
 WHICH_IS_BETTER_CHART_FPATH = os.path.join(CHARTS_DIR, "better_scenario.png")
 BAR_CHART_FPATH = os.path.join(CHARTS_DIR, "bar_chart.png")
