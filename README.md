@@ -68,6 +68,21 @@ The following is the directory structure of the project:
 14. [rt_bin_class_svc_sklearn](https://github.com/readytensor/rt_bin_class_svc_sklearn)
 15. [rt_bin_class_xgboost](https://github.com/readytensor/rt_bin_class_xgboost)
 
+
+## Usage
+
+1. Create a virtual environment and install the dependencies listed in **`requirements.txt`**
+```python
+pip install -r requirements.txt
+```
+2. Run the **`run_all.py`** script.
+3. The results will be stored in **`/results`** directory:
+  - **`/results/charts`**: contains the generated charts.
+  - **`/results/metrics`**: contains all metrics calculation results.
+  - **`/results/statistical_tests`**: contains the results of ANOVA and pairwise t-tests.
+
+
+
 ## LICENSE
 
 The code in this repository is licensed under the MIT License. See [license](license) for details. <br>
