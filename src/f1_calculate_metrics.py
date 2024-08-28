@@ -39,6 +39,7 @@ def calculate_metrics() -> pd.DataFrame:
     Returns:
         pd.DataFrame: Dataframe containing metrics.
     """
+    print("Calculating metrics on all experiments' predictions...")
     all_metrics = []
     scenarios = list(scenarios_mapping.keys())
     models = list(models_mapping.keys())
