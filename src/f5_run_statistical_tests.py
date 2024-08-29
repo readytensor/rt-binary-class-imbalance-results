@@ -2,7 +2,7 @@ import os
 import itertools
 import pandas as pd
 from config import paths
-from config.variables import ordered_metrics
+from config.variables import metrics as metrics_dict
 from scipy.stats import ttest_rel
 from statsmodels.stats.anova import AnovaRM
 
@@ -13,6 +13,7 @@ def run_anova(
     print("Running ANOVA test...")
     metrics = metrics_df.copy()
     metrics["Dataset"] = metrics["Dataset_Fold"].str.split("_").str[0]
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
 
     metrics = (
         metrics.groupby(["Scenario", "Dataset", "Model"])[ordered_metrics]
@@ -54,6 +55,7 @@ def run_paired_t_tests(
     print("Running paired t-tests...")
     metrics = metrics_df.copy()
     metrics["Dataset"] = metrics["Dataset_Fold"].str.split("_").str[0]
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
 
     metrics = (
         metrics.groupby(["Scenario", "Dataset", "Model"])[ordered_metrics]

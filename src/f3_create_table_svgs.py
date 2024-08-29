@@ -1,4 +1,3 @@
-
 """
 This module generates SVG tables for overall results, results by model, and results by dataset,
 based on CSV files containing pivoted metrics. The tables are styled with customizable parameters 
@@ -16,20 +15,16 @@ External dependencies:
 - matplotlib for plotting.
 - Custom utility modules for reading CSV files and configuring chart settings.
 """
-
 import os
-import pandas as pd
-import matplotlib.pyplot as plt
+
 from utils import read_csv_as_df
 from config import paths
 from config.chart_cfg import (
     table_font_size,
     header_font_size,
-    table_first_col_font_size,
     table_background_color,
     table_background_color2,
     table_first_row_background_color,
-    table_first_col_background_color,
     table_outer_border_thickness,
     table_inner_border_thickness,
     table_outer_border_color,
@@ -38,7 +33,7 @@ from config.chart_cfg import (
     highlight_color,
 )
 from charts.chart_utils import df_to_svg, find_extreme_cells
-from config.variables import ordered_scenarios
+from config.variables import ordered_scenarios, metrics
 
 
 def filter_df_col_by_val(df, col, val, drop_col=True):
@@ -48,6 +43,22 @@ def filter_df_col_by_val(df, col, val, drop_col=True):
     filtered_df = df[df[col] == val].copy()
     if drop_col:
         filtered_df.drop(col, axis=1, inplace=True)
+    return filtered_df
+
+
+def filter_df_by_min_max_metrics(df, metrics, min_max):
+    """
+    Filter a DataFrame by minimum or maximum values of specified metrics.
+
+    Args:
+    - df (pd.DataFrame): DataFrame containing metrics.
+    - metrics (List[Dict]): List of dictionaries containing metric names and min or max type.
+    - min_max (str): Type: "min" or "max".
+    """
+    filtered_metrics = [
+        metric["name"] for metric in metrics if metric["min_max"] == min_max
+    ]
+    filtered_df = df[df["Metric"].isin(filtered_metrics)].copy()
     return filtered_df
 
 
@@ -69,10 +80,20 @@ def generate_table_svgs():
 
     # Overall results
     overall_results = read_csv_as_df(paths.OVERALL_PIVOTED_METRICS_FPATH)
-    highlight_cells = find_extreme_cells(overall_results, ordered_scenarios)
+    highlight_cells = {}
+    for min_max in ["min", "max"]:
+        filtered_df = filter_df_by_min_max_metrics(overall_results, metrics, min_max)
+        highlight_cells.update(
+            find_extreme_cells(
+                filtered_df,
+                ordered_scenarios,
+                by="row",
+                extreme=min_max,
+            )
+        )
     df_to_svg(
         overall_results,
-        filepath=paths.OVERALL_RESULTS_TABLE_SVG,
+        filepath=os.path.join(paths.CHARTS_DIR, "overall_results.svg"),
         highlight_cells=highlight_cells,
         center_align_columns=ordered_scenarios,
         column_widths={
@@ -85,49 +106,61 @@ def generate_table_svgs():
         **common_params,
     )
 
-    # Results by model
+    # Results by model and dataset
     by_model_results = read_csv_as_df(paths.BY_MODEL_PIVOTED_METRICS_FPATH)
-    by_model_results_filtered = filter_df_col_by_val(
-        by_model_results, "Metric", "F1-score", drop_col=True
-    )
-    highlight_cells = find_extreme_cells(by_model_results_filtered, ordered_scenarios)
-    df_to_svg(
-        by_model_results_filtered,
-        filepath=paths.BY_MODEL_F1_RESULTS_TABLE_SVG,
-        highlight_cells=highlight_cells,
-        center_align_columns=ordered_scenarios,
-        column_widths={
-            "Model": 180,
-            "Baseline": 150,
-            "SMOTE": 150,
-            "Class Weights": 150,
-            "Decision Threshold": 210,
-        },
-        **common_params,
-    )
-
-    # Results by dataset
     by_dataset_results = read_csv_as_df(paths.BY_DATASET_PIVOTED_METRICS_FPATH)
-    by_dataset_results_filtered = filter_df_col_by_val(
-        by_dataset_results, "Metric", "F1-score", drop_col=True
-    )
-    highlight_cells = find_extreme_cells(by_dataset_results_filtered, ordered_scenarios)
-    df_to_svg(
-        by_dataset_results_filtered,
-        filepath=paths.BY_DATASET_F1_RESULTS_TABLE_SVG,
-        highlight_cells=highlight_cells,
-        center_align_columns=ordered_scenarios,
-        column_widths={
-            "Dataset": 250,
-            "Baseline": 150,
-            "SMOTE": 150,
-            "Class Weights": 150,
-            "Decision Threshold": 210,
-        },
-        **common_params,
-    )
 
-    print("Table svgs created.")
+    for metric in [m["name"] for m in metrics]:
+        # By model results
+        by_model_results_filtered = filter_df_col_by_val(
+            by_model_results, "Metric", metric, drop_col=True
+        )
+        extreme = (
+            "max"
+            if any(m["name"] == metric and m["min_max"] == "max" for m in metrics)
+            else "min"
+        )
+        highlight_cells = find_extreme_cells(
+            by_model_results_filtered, ordered_scenarios, by="row", extreme=extreme
+        )
+        df_to_svg(
+            by_model_results_filtered,
+            filepath=os.path.join(paths.CHARTS_DIR, f"{metric}_results_by_model.svg"),
+            highlight_cells=highlight_cells,
+            center_align_columns=ordered_scenarios,
+            column_widths={
+                "Model": 180,
+                "Baseline": 150,
+                "SMOTE": 150,
+                "Class Weights": 150,
+                "Decision Threshold": 210,
+            },
+            **common_params,
+        )
+
+        # By dataset results
+        by_dataset_results_filtered = filter_df_col_by_val(
+            by_dataset_results, "Metric", metric, drop_col=True
+        )
+        highlight_cells = find_extreme_cells(
+            by_dataset_results_filtered, ordered_scenarios, by="row", extreme=extreme
+        )
+        df_to_svg(
+            by_dataset_results_filtered,
+            filepath=os.path.join(paths.CHARTS_DIR, f"{metric}_results_by_dataset.svg"),
+            highlight_cells=highlight_cells,
+            center_align_columns=ordered_scenarios,
+            column_widths={
+                "Dataset": 250,
+                "Baseline": 150,
+                "SMOTE": 150,
+                "Class Weights": 150,
+                "Decision Threshold": 210,
+            },
+            **common_params,
+        )
+
+    print("Table SVGs created.")
 
 
 if __name__ == "__main__":

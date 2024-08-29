@@ -9,6 +9,9 @@ from sklearn.metrics import (
     fbeta_score,
     precision_recall_curve,
     auc,
+    log_loss,
+    brier_score_loss,
+    matthews_corrcoef,
 )
 import logging
 
@@ -99,6 +102,10 @@ def get_binary_classification_scores(
     precision_curve, recall_curve, _ = precision_recall_curve(y_true, y_pred_proba)
     pr_auc = auc(recall_curve, precision_curve)
 
+    logloss = log_loss(y_true, y_pred_proba)
+    brier = brier_score_loss(y_true, y_pred_proba)
+    mcc = matthews_corrcoef(y_true, y_pred)
+
     # Compile all metrics into a dictionary
     scores = {
         "Accuracy": np.round(accuracy, 4),
@@ -108,6 +115,9 @@ def get_binary_classification_scores(
         "F2-score": np.round(f2, 4),
         "AUC": np.round(roc_auc, 4),
         "PR-AUC": np.round(pr_auc, 4),
+        "Log-Loss": np.round(logloss, 4),
+        "Brier-Score": np.round(brier, 4),
+        "MCC": np.round(mcc, 4),
     }
 
     logger.info("Metric calculation complete.")

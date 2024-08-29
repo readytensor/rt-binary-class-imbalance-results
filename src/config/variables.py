@@ -18,15 +18,30 @@ ordered_scenarios = [
     "Decision Threshold",
 ]
 
-ordered_metrics = [
-    "F1-score",
-    "F2-score",
-    "Recall",
-    "Precision",
-    "PR-AUC",
-    "AUC",
-    "Accuracy",
+metrics = [
+    {"name": "F1-score", "min_max": "max"},
+    {"name": "F2-score", "min_max": "max"},
+    {"name": "MCC", "min_max": "max"},
+    {"name": "Recall", "min_max": "max"},
+    {"name": "Precision", "min_max": "max"},
+    {"name": "PR-AUC", "min_max": "max"},
+    {"name": "AUC", "min_max": "max"},
+    {"name": "Accuracy", "min_max": "max"},
+    {"name": "Log-Loss", "min_max": "min"},
+    {"name": "Brier-Score", "min_max": "min"},
 ]
+# ordered_metrics = [
+#     "F1-score",
+#     "F2-score",
+#     "MCC",
+#     "Recall",
+#     "Precision",
+#     "PR-AUC",
+#     "AUC",
+#     "Accuracy",
+#     "Log-Loss",
+#     "Brier-Score",
+# ]
 
 
 # model name mapping

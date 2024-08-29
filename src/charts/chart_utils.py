@@ -115,7 +115,7 @@ def find_extreme_cells(df, columns, by="row", extreme="max"):
                 elif x_value == extreme_value:
                     extreme_rows.append(row_idx)  # Handle ties
 
-            # Mark the cells to be bolded in the current column, but only if there is a 
+            # Mark the cells to be bolded in the current column, but only if there is a
             # valid extreme value
             if extreme_rows and extreme_value != float("-inf"):
                 for row_idx in extreme_rows:
@@ -146,7 +146,7 @@ def df_to_svg(
     highlight_color=None,
 ):
     """
-    Converts a pandas DataFrame to an SVG with customizable styling, including row 
+    Converts a pandas DataFrame to an SVG with customizable styling, including row
     background colors, highlighted cells, and custom column widths.
 
     Args:
@@ -157,7 +157,7 @@ def df_to_svg(
         header_font_size (int): Font size for the first row (header).
         body_font_size (int): Font size for the rest of the table.
         header_bg_color (str): Background color of the first row.
-        body_bg_color (str or list): Background color of the rest of the rows. 
+        body_bg_color (str or list): Background color of the rest of the rows.
                             Can be a single color or alternating colors (list).
         outer_border_thickness (int): Thickness of the outer border.
         inner_border_thickness (int): Thickness of the inner borders.
@@ -166,9 +166,9 @@ def df_to_svg(
         font_type (str): Font type to be used.
         highlight_cells (dict): A dictionary of row and column indices to be highlighted.
         center_align_columns (list): List of columns to be center-aligned. Default is None.
-        column_widths (dict): A dictionary specifying the width of each column 
+        column_widths (dict): A dictionary specifying the width of each column
                              (keyed by column name). Default is None (equal widths).
-        highlight_color (str): Font color for highlighted cells. 
+        highlight_color (str): Font color for highlighted cells.
                                Default is None (uses regular font color).
 
     Returns:
@@ -250,7 +250,7 @@ def df_to_svg(
         x_position += col_width
 
     # Add the rows with customizable styling
-    for row_idx, row in df.iterrows():
+    for row_idx, (_, row) in enumerate(df.iterrows()):
         # Determine background color based on alternating logic
         if isinstance(body_bg_color, list) and len(body_bg_color) == 2:
             bg_color = body_bg_color[row_idx % 2]
@@ -259,8 +259,7 @@ def df_to_svg(
 
         x_position = 0  # Reset x_position for each row
 
-        for col_idx, cell in enumerate(row):
-            column_name = df.columns[col_idx]
+        for col_idx, (column_name, cell) in enumerate(row.items()):
             col_width = column_widths[column_name]
 
             # Background color for body rows
@@ -277,8 +276,8 @@ def df_to_svg(
             # Determine if this cell should be highlighted
             is_highlighted = (
                 highlight_cells
-                and row_idx in highlight_cells
-                and column_name in highlight_cells[row_idx]
+                and row.name in highlight_cells
+                and column_name in highlight_cells[row.name]
             )
             cell_color = highlight_color if is_highlighted else "black"
 

@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from .chart_utils import apply_chart_cfg
-from config.variables import ordered_metrics, ordered_scenarios
+from config.variables import metrics as metrics_dict, ordered_scenarios
 from config.chart_cfg import *
 from utils import prepare_data_for_visualization
 
@@ -14,6 +14,7 @@ def create_bar_chart(metrics_df: pd.DataFrame, save_fig_path: str) -> None:
     avg_metrics = metrics.groupby(["Metric", "fold_number"])[ordered_scenarios].mean()
 
     avg_metrics = avg_metrics.groupby("Metric").mean()
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
     avg_metrics = avg_metrics.reindex(ordered_metrics)
     ordered_colors = [colors[k] for k in ordered_scenarios]
 

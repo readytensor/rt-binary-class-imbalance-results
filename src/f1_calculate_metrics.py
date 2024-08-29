@@ -79,12 +79,15 @@ def calculate_metrics() -> pd.DataFrame:
         "Dataset_Fold",
         "Model",
         "Accuracy",
+        "MCC",
         "Precision",
         "Recall",
         "F1-score",
         "F2-score",
         "AUC",
         "PR-AUC",
+        "Log-Loss",
+        "Brier-Score",
     ]
     results_df = pd.DataFrame(all_metrics)[reordered_cols]
     # map scenario names to scenario display names

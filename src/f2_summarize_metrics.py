@@ -20,7 +20,7 @@ import pandas as pd
 from typing import List, Optional
 
 from utils import read_csv_as_df, save_dataframe_as_csv
-from config.variables import ordered_scenarios, ordered_metrics, ordered_models
+from config.variables import ordered_scenarios, metrics, ordered_models
 from config import paths, variables
 
 
@@ -47,11 +47,12 @@ def prepare_metrics_df_with_metadata(
     # Create a mapping of model names to their order
     models_order = {model: i for i, model in enumerate(ordered_models)}
     prepared_df["Model Order"] = prepared_df["Model"].map(models_order)
-
     return prepared_df
 
 
-def aggregate_metrics(metrics_df: pd.DataFrame, by: str = "overall") -> pd.DataFrame:
+def aggregate_metrics(
+    metrics_df: pd.DataFrame, ordered_metrics: List[str], by: str = "overall"
+) -> pd.DataFrame:
     """
     Aggregate metrics for each scenario and metric. Calculates the mean across models,
     datasets, for each scenario, metric, and fold. Then calculates the mean and standard
@@ -59,7 +60,9 @@ def aggregate_metrics(metrics_df: pd.DataFrame, by: str = "overall") -> pd.DataF
 
     Args:
         metrics_df (pd.DataFrame): DataFrame containing the metrics for 9000 experiments.
-        by (str): The level at which to aggregate the metrics. Can be 'overall', 'model', 'dataset', or 'model_dataset'.
+        ordered_metrics (List[str]): Ordered list of metric names.
+        by (str): The level at which to aggregate the metrics.
+                    Can be 'overall', 'model', 'dataset', or 'model_dataset'.
 
     Returns:
         pd.DataFrame: Aggregated DataFrame with columns: 'Scenario', 'Metric', 'Mean ± Std Dev'.
@@ -140,17 +143,25 @@ def summarize_metrics():
     orig_metrics = read_csv_as_df(paths.METRICS_FPATH)
     prepared_metrics_df = prepare_metrics_df_with_metadata(orig_metrics, ordered_models)
 
+    ordered_metrics = [metric["name"] for metric in metrics]
+
     # Summarize at various levels and save the results
-    aggregated_df = aggregate_metrics(prepared_metrics_df, by="overall")
+    aggregated_df = aggregate_metrics(
+        prepared_metrics_df, ordered_metrics, by="overall"
+    )
     save_dataframe_as_csv(aggregated_df, paths.OVERALL_METRICS_FPATH, index=True)
 
-    aggregated_df = aggregate_metrics(prepared_metrics_df, by="dataset")
+    aggregated_df = aggregate_metrics(
+        prepared_metrics_df, ordered_metrics, by="dataset"
+    )
     save_dataframe_as_csv(aggregated_df, paths.BY_DATASET_METRICS_FPATH, index=True)
 
-    aggregated_df = aggregate_metrics(prepared_metrics_df, by="model")
+    aggregated_df = aggregate_metrics(prepared_metrics_df, ordered_metrics, by="model")
     save_dataframe_as_csv(aggregated_df, paths.BY_MODEL_METRICS_FPATH, index=True)
 
-    aggregated_df = aggregate_metrics(prepared_metrics_df, by="model_dataset")
+    aggregated_df = aggregate_metrics(
+        prepared_metrics_df, ordered_metrics, by="model_dataset"
+    )
     save_dataframe_as_csv(
         aggregated_df, paths.BY_MODEL_DATASET_METRICS_FPATH, index=True
     )
@@ -221,6 +232,8 @@ def create_pivoted_tables():
     by_dataset_df = read_csv_as_df(paths.BY_DATASET_METRICS_FPATH)
     by_model_df = read_csv_as_df(paths.BY_MODEL_METRICS_FPATH)
     by_model_dataset_df = read_csv_as_df(paths.BY_MODEL_DATASET_METRICS_FPATH)
+
+    ordered_metrics = [metric["name"] for metric in metrics]
 
     # Create pivoted tables
     overall_pivoted = pivot_and_order_table(

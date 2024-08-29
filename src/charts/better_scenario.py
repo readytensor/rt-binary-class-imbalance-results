@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from .chart_utils import apply_chart_cfg
 from config.chart_cfg import *
-from config.variables import ordered_metrics, ordered_scenarios, ordered_models
+from config.variables import metrics as metrics_dict, ordered_scenarios, ordered_models
 from utils import prepare_data_for_visualization
 
 
@@ -34,6 +34,7 @@ def create_which_is_better_chart(metrics_df: pd.DataFrame, save_fig_path: str) -
     metrics = metrics_df.copy()
     metrics = prepare_data_for_visualization(metrics)
     metrics["comparison"] = metrics.apply(lambda row: classify_comparison(row), axis=1)
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
 
     comparison_columns = [
         "baseline_is_better",
@@ -155,6 +156,7 @@ def create_scenario_impact_chart(
     ]
 
     # Create sub-plots with 5 columns (one for each metric) and 1 row
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
     fig, axes = plt.subplots(1, len(ordered_metrics), figsize=(20, 10), sharey=True)
 
     for col, metric in enumerate(ordered_metrics):

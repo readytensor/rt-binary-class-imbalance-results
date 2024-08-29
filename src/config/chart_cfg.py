@@ -29,4 +29,4 @@ table_inner_border_thickness = 1
 table_outer_border_color = "#000000"
 table_inner_border_color = "#CCCCCC"
 font_type = "Open Sans"
-highlight_color = "#28A745"
+highlight_color = "#0165FC"

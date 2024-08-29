@@ -54,8 +54,7 @@ BY_MODEL_DATASET_PIVOTED_METRICS_FPATH = os.path.join(
 
 # Charts
 OVERALL_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "overall_metrics.svg")
-BY_MODEL_F1_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "by_model_f1_results.svg")
-BY_DATASET_F1_RESULTS_TABLE_SVG = os.path.join(CHARTS_DIR, "by_dataset_f1_results.svg")
+BY_METRIC_SVG_RESULTS_DIR = os.path.join(CHARTS_DIR, "by_metric")
 
 
 WHICH_IS_BETTER_CHART_FPATH = os.path.join(CHARTS_DIR, "better_scenario.png")

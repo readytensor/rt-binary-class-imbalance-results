@@ -3,7 +3,7 @@ import os
 import zipfile
 import pandas as pd
 from typing import Dict
-from config.variables import ordered_metrics
+from config.variables import metrics as metrics_dict
 
 import config.paths as paths
 
@@ -125,6 +125,7 @@ def prepare_data_for_visualization(metrics: pd.DataFrame) -> pd.DataFrame:
     """
     Prepare the data for visualization by melting the dataframe and sorting the values.
     """
+    ordered_metrics = [metric["name"] for metric in metrics_dict]
     metrics = metrics.melt(
         id_vars=["Scenario", "Model", "Dataset_Fold"],
         value_vars=ordered_metrics,
